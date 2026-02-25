@@ -67,6 +67,8 @@ export function SoulMap() {
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     let animationFrameId: number;
     let width = canvas.clientWidth;
     let height = canvas.clientHeight;
@@ -166,6 +168,29 @@ export function SoulMap() {
 
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);
+
+    // Static render for reduced motion preference
+    if (prefersReducedMotion) {
+      ctx.fillStyle = '#0A0A0A';
+      ctx.fillRect(0, 0, width, height);
+      nodes.forEach(node => {
+        ctx.beginPath();
+        ctx.arc(node.baseX, node.baseY, node.radius, 0, Math.PI * 2);
+        const c = colors[node.type as keyof typeof colors];
+        ctx.fillStyle = `rgba(${c.r}, ${c.g}, ${c.b}, ${node.primary ? 0.8 : 0.4})`;
+        ctx.fill();
+        if (node.primary) {
+          ctx.font = '11px monospace';
+          ctx.fillStyle = `rgba(${c.r}, ${c.g}, ${c.b}, 0.7)`;
+          ctx.textAlign = 'center';
+          ctx.fillText(node.name, node.baseX, node.baseY + node.radius + 14);
+        }
+      });
+      return () => {
+        canvas.removeEventListener('mousemove', handleMouseMove);
+        canvas.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
 
     // Render Loop
     let time = 0;
@@ -407,6 +432,24 @@ export function SoulMap() {
             <span className="text-soul-dim hidden sm:inline">Tristitia (Sadness)</span>
           </div>
         </div>
+      </div>
+
+      {/* Mobile fallback - show below canvas on small screens */}
+      <div className="block sm:hidden mt-6 space-y-2">
+        {['Laetitia (Joy)', 'Tristitia (Sadness)', 'Cupiditas (Desire)'].map((name, i) => (
+          <details key={i} className="border border-void-border rounded-lg">
+            <summary className={`p-3 text-small font-mono cursor-pointer ${
+              i === 0 ? 'text-affect-joy' : i === 1 ? 'text-affect-sadness' : 'text-affect-desire'
+            }`}>{name}</summary>
+            <div className="p-3 pt-0 space-y-1">
+              {AFFECTS.filter(a => a.type === ['joy', 'sadness', 'desire'][i]).map(a => (
+                <div key={a.id} className="text-micro text-soul-dim font-mono">
+                  {a.name} — {a.english}
+                </div>
+              ))}
+            </div>
+          </details>
+        ))}
       </div>
     </section>
   );

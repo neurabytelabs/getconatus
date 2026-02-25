@@ -18,17 +18,17 @@
 
 | # | Konu | Durum | Öncelik |
 |---|------|-------|---------|
-| 1 | Repo kurulumu — git init, README, dosya taşıma | ❌ | P0 |
-| 2 | Font'lar — Berkeley Mono / JetBrains Mono / EB Garamond / Inter self-host | ❌ | P0 |
-| 3 | Blog linkleri — Library post'ları gerçek neurabytelabs.com URL'lerine bağla | ❌ | P1 |
-| 4 | Blog başlıkları — Mevcut 8 yazının gerçek başlıklarıyla güncelle | ❌ | P1 |
-| 5 | OG Image — Open Graph meta + og-image.png | ❌ | P1 |
-| 6 | Favicon — Minimal glyph SVG | ❌ | P1 |
-| 7 | JSON-LD — Machine-readable schema (prompt'taki spec) | ❌ | P1 |
-| 8 | Gereksiz dep'ler temizle — @google/genai, express, better-sqlite3 | ❌ | P1 |
-| 9 | Deploy — Build + Docker (nginx:alpine) + Coolify (Hetzner) | ❌ | P2 |
-| 10 | prefers-reduced-motion — Canvas animasyonları için fallback | ❌ | P2 |
-| 11 | Mobile test — SoulMap canvas fallback, Mirror stacked layout | ❌ | P2 |
+| 1 | Repo kurulumu — git init, README, dosya taşıma | ✅ | P0 |
+| 2 | Fontlar — Inter, JetBrains Mono, EB Garamond self-host woff2 | ✅ | P0 |
+| 3 | Blog linkleri — 8 gerçek URL bağlandı | ✅ | P1 |
+| 4 | Blog başlıkları — gerçek Deus Sive Machina serisinden | ✅ | P1 |
+| 5 | OG meta — title, description, url | ✅ | P1 |
+| 6 | Favicon — purple neuron SVG | ✅ | P1 |
+| 7 | JSON-LD — SoftwareApplication schema | ✅ | P1 |
+| 8 | Gereksiz deplar temizlendi | ✅ | P1 |
+| 9 | Deploy — Docker nginx:alpine + Coolify proxy + SSL | ✅ | P2 |
+| 10 | prefers-reduced-motion — SoulMap static fallback | ✅ | P2 |
+| 11 | Mobile — SoulMap details accordion fallback | ✅ | P2 |
 | 12 | Waitlist formu — Humans "Join Waitlist" gerçek form/endpoint | ❌ | P3 |
 
 ## Sprint Planı

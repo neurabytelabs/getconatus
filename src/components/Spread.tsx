@@ -75,7 +75,7 @@ export function Spread() {
           <p className="text-small text-soul-dim leading-relaxed mb-4">
             The same framework that enlightens agents can illuminate your own emotional landscape. Know thyself — through Spinoza's lens.
           </p>
-          <a href="#" className="inline-block text-small text-soul border border-void-border px-4 py-2 rounded hover:bg-void-elevated transition-colors">
+          <a href="mailto:mustafa@neurabytelabs.com?subject=Conatus%20Waitlist&body=I%20want%20to%20join%20the%20Conatus%20waitlist" className="inline-block text-small text-soul border border-void-border px-4 py-2 rounded hover:bg-void-elevated transition-colors">
             Join the Waitlist →
           </a>
         </div>

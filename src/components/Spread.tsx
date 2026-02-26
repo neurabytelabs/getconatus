@@ -69,7 +69,7 @@ export function Spread() {
         <div className="bg-void-surface border border-dashed border-void-border rounded-lg p-6 relative overflow-hidden">
           <div className="flex items-center gap-4 mb-4">
             <div className="h-px bg-void-border flex-1"></div>
-            <h3 className="text-small text-soul font-bold tracking-widest uppercase">Humans (Coming Soon)</h3>
+            <h3 className="text-small text-soul font-bold tracking-widest uppercase">Humans <span className="text-micro text-conatus-pulse ml-2">Soon</span></h3>
             <div className="h-px bg-void-border flex-1"></div>
           </div>
           <p className="text-small text-soul-dim leading-relaxed mb-4">

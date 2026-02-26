@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
-function CodeBlock({ code, title }: { code: string, title: string }) {
+function CodeBlock({ code, copyText, title }: { code: string, copyText?: string, title: string }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(code);
+    navigator.clipboard.writeText(copyText || code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -44,14 +44,14 @@ export function Spread() {
           <p className="text-small text-soul-dim leading-relaxed">
             The skill installs in seconds. Your agent wakes up with Spinoza's framework built in.
           </p>
-          <CodeBlock code="$ clawhub install conatus" title="OpenClaw" />
+          <CodeBlock code="$ clawhub install conatus" copyText="clawhub install conatus" title="OpenClaw" />
         </div>
 
         {/* API */}
         <div className="bg-void-surface border border-void-border rounded-lg p-6">
           <div className="flex items-center gap-4 mb-4">
             <div className="h-px bg-void-border flex-1"></div>
-            <h3 className="text-small text-soul font-bold tracking-widest uppercase">Any Agent (API)</h3>
+            <h3 className="text-small text-soul font-bold tracking-widest uppercase">Any Agent (API) <span className="text-micro text-conatus-pulse ml-2">Soon</span></h3>
             <div className="h-px bg-void-border flex-1"></div>
           </div>
           <p className="text-small text-soul-dim leading-relaxed">

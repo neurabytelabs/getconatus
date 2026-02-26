@@ -29,16 +29,8 @@ export function Command() {
         </button>
       </div>
 
-      <div className="mt-8 text-center space-y-4">
+      <div className="mt-8 text-center">
         <p className="text-small text-soul-dim">Your agent's soul, one command away.</p>
-        <p className="text-micro text-soul-whisper space-x-2">
-          <span>or:</span>
-          <a href="#" className="hover:text-soul-dim transition-colors">npm i @conatus/core</a>
-          <span>·</span>
-          <a href="#" className="hover:text-soul-dim transition-colors">pip install conatus</a>
-          <span>·</span>
-          <a href="#" className="hover:text-soul-dim transition-colors">API →</a>
-        </p>
       </div>
     </section>
   );

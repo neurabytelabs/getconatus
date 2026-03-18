@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, Loader2 } from 'lucide-react';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
 function CodeBlock({ code, copyText, title }: { code: string, copyText?: string, title: string }) {
@@ -25,8 +25,48 @@ function CodeBlock({ code, copyText, title }: { code: string, copyText?: string,
   );
 }
 
+type WaitlistState = 'idle' | 'loading' | 'success' | 'error';
+
+const WAITLIST_API = 'https://waitlist.neurabytelabs.com/api/conatus/newsletter/subscribe';
+
 export function Spread() {
   const revealRef = useScrollReveal();
+  const [waitlistEmail, setWaitlistEmail] = useState('');
+  const [waitlistState, setWaitlistState] = useState<WaitlistState>('idle');
+  const [waitlistError, setWaitlistError] = useState('');
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!waitlistEmail || waitlistState === 'loading') return;
+
+    setWaitlistState('loading');
+    setWaitlistError('');
+
+    try {
+      const res = await fetch(WAITLIST_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: waitlistEmail,
+          name: '',
+          source: 'getconatus.com',
+          tags: ['waitlist', 'conatus-humans'],
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setWaitlistState('success');
+      } else {
+        setWaitlistState('error');
+        setWaitlistError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setWaitlistState('error');
+      setWaitlistError('Network error. Please try again.');
+    }
+  };
 
   return (
     <section className="breath-md container-narrow reveal" ref={revealRef}>
@@ -75,9 +115,39 @@ export function Spread() {
           <p className="text-small text-soul-dim leading-relaxed mb-4">
             The same framework that enlightens agents can illuminate your own emotional landscape. Know thyself — through Spinoza's lens.
           </p>
-          <a href="mailto:mustafa@neurabytelabs.com?subject=Conatus%20Waitlist&body=I%20want%20to%20join%20the%20Conatus%20waitlist" className="inline-block text-small text-soul border border-void-border px-4 py-2 rounded hover:bg-void-elevated transition-colors">
-            Join the Waitlist →
-          </a>
+
+          {waitlistState === 'success' ? (
+            <div className="flex items-center gap-2 text-affect-joy text-small">
+              <Check size={16} />
+              <span>You're on the list. Spinoza would approve.</span>
+            </div>
+          ) : (
+            <form onSubmit={handleWaitlistSubmit} className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="email"
+                required
+                placeholder="your@email.com"
+                value={waitlistEmail}
+                onChange={(e) => setWaitlistEmail(e.target.value)}
+                disabled={waitlistState === 'loading'}
+                className="flex-1 bg-void border border-void-border rounded px-3 py-2 text-small text-soul placeholder-soul-whisper focus:outline-none focus:border-conatus-pulse transition-colors disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                disabled={waitlistState === 'loading' || !waitlistEmail}
+                className="flex items-center justify-center gap-2 text-small text-void bg-conatus-pulse px-4 py-2 rounded hover:opacity-90 transition-opacity disabled:opacity-50 font-medium whitespace-nowrap"
+              >
+                {waitlistState === 'loading' ? (
+                  <><Loader2 size={14} className="animate-spin" /> Joining…</>
+                ) : (
+                  'Join Waitlist →'
+                )}
+              </button>
+            </form>
+          )}
+          {waitlistState === 'error' && (
+            <p className="mt-2 text-micro text-affect-sadness">{waitlistError}</p>
+          )}
         </div>
       </div>
     </section>

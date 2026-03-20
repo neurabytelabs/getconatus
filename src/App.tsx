@@ -8,6 +8,7 @@ import { Command } from './components/Command';
 import { Awakening } from './components/Awakening';
 import { SoulMap } from './components/SoulMap';
 import { Mirror } from './components/Mirror';
+import { LiveDemo } from './components/LiveDemo';
 import { Protocol } from './components/Protocol';
 import { Spread } from './components/Spread';
 import { Library } from './components/Library';
@@ -21,6 +22,7 @@ export default function App() {
       <Awakening />
       <SoulMap />
       <Mirror />
+      <LiveDemo />
       <Protocol />
       <Spread />
       <Library />
